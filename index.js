@@ -37,10 +37,11 @@ app.on('ready', () => {
                 // Optionally implemented for chrome.windows.create support
             },
         })
-    
+
         extensions.addTab(win.webContents, win)
 
         session.defaultSession.loadExtension(__dirname + '\\extensions\\BetterTTV')
+        session.defaultSession.loadExtension(__dirname + '\\extensions\\Twitch-Loot-Collector')
         session.defaultSession.loadExtension(__dirname + '\\extensions\\Video-Ad-Block--for-Twitch')
 
 
