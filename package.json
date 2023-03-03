@@ -1,22 +1,38 @@
 {
   "name": "twitch_app",
-  "version": "1.1.2",
+  "version": "1.1.3",
+  "productName": "Twitch App",
   "description": "A Twitch app with built in adblock",
   "main": "index.js",
   "scripts": {
-    "start": "electron .",
-    "package": "electron-packager . simple_twitch_app --overwrite --platform=win32 --arch=x64 --icon=twitch.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"simple twitch app\"",
-    "package-mac": "electron-packager . simple_twitch_app --overwrite --platform=darwin --arch=x64 --icon=twitch.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"simple twitch app\""
+    "test": "electron .",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "package-mac": "electron-packager . twitch_app --overwrite --platform=darwin --arch=x64 --icon=twitch.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"simple twitch app\"",
+    "make": "electron-forge make"
   },
-  "author": "nivp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mikepruett3/simple_twitch_app"
+  },
+  "keywords": [
+    "Electron",
+    "Reddit"
+  ],
+  "author": "Mike Pruett <mikepruett3@gmail.com> (code borrowed from nivp)",
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "@electron/remote": "^2.0.4",
     "electron-chrome-context-menu": "^1.1.0",
-    "electron-chrome-extensions": "^3.9.0"
+    "electron-chrome-extensions": "^3.9.0",
+    "electron-squirrel-startup": "^1.0.0"
   },
   "devDependencies": {
-    "electron": "^17.0.0",
-    "electron-packager": "^15.4.0"
+    "@electron-forge/cli": "^6.0.5",
+    "@electron-forge/maker-deb": "^6.0.5",
+    "@electron-forge/maker-rpm": "^6.0.5",
+    "@electron-forge/maker-squirrel": "^6.0.5",
+    "@electron-forge/maker-zip": "^6.0.5",
+    "electron": "^17.0.0"
   }
 }

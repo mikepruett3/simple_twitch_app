@@ -1,23 +1,34 @@
+// index.js
+
+// https://www.electronforge.io/config/makers/squirrel.windows
+if (require('electron-squirrel-startup')) return;
+
 const { app, BrowserWindow, session, shell } = require('electron')
 const { ElectronChromeExtensions } = require('electron-chrome-extensions')
 require('@electron/remote/main').initialize()
 const buildChromeContextMenu = require('electron-chrome-context-menu').default
 
+// Disable Hardware Acceleration
+// https://www.electronjs.org/docs/latest/tutorial/offscreen-rendering
+app.disableHardwareAcceleration()
+
 app.on('ready', () => {
     const win = new BrowserWindow({
-        title: "Simple Twitch App",
-        width: 1440,
-        height: 842,
+        width: 1280,
+        height: 720,
+        title: "Twitch App",
+        icon: __dirname + "/images/Twitch.png",
         session: session.defaultSession,
+        autoHideMenuBar: true,
         webPreferences: {
+            webSecurity: true,
+            contextIsolation: false,
             webviewTag: true,
             nodeIntegration: true,
-            contextIsolation: false,
-            nativeWindowOpen: true,
+            nativeWindowOpen: true
         },
-        frame: false,
-        icon: __dirname + "/twitch.png",
-    })
+        frame: false
+    });
 
     require('@electron/remote/main').enable(win.webContents)
 
@@ -40,9 +51,9 @@ app.on('ready', () => {
 
         extensions.addTab(win.webContents, win)
 
-        session.defaultSession.loadExtension(__dirname + '\\extensions\\BetterTTV')
-        session.defaultSession.loadExtension(__dirname + '\\extensions\\Twitch-Loot-Collector')
-        session.defaultSession.loadExtension(__dirname + '\\extensions\\Video-Ad-Block--for-Twitch')
+        session.defaultSession.loadExtension(__dirname + '/extensions/BetterTTV')
+        session.defaultSession.loadExtension(__dirname + '/extensions/Twitch-Loot-Collector')
+        session.defaultSession.loadExtension(__dirname + '/extensions/Video-Ad-Block--for-Twitch')
 
 
         if (webContents.getType() === 'webview') {
@@ -60,8 +71,7 @@ app.on('ready', () => {
                     webContents.loadURL(url)
                 }
             })
-            session.defaultSession.loadExtension(__dirname + '\\extensions\\ublock_origin', { allowFileAccess: true })
-
+            session.defaultSession.loadExtension(__dirname + '/extensions/ublock_origin', { allowFileAccess: true })
             menu.popup()
         })
     })
