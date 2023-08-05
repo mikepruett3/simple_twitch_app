@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>BetterTTV: Additional Permissions Needed</title>
+    <title id="page_title">BetterTTV: Allow on YouTube?</title>
     <script type="text/javascript" src="permissions_upgrade.js"></script>
     <style>
         body {
@@ -25,7 +25,7 @@
             margin: 16px;
         }
         .permissions-cta-container {
-            background: #292d33;
+            background: #303642;
             width: 350px;
             color: #ffffff;
             border-radius: 4px;
@@ -66,18 +66,20 @@
         button:hover {
             background: #ececec;
         }
+        p {
+            white-space: pre-wrap;
+        }
     </style>
 </head>
 <body>
     <div class="permissions-cta-logo"></div>
     <div class="permissions-cta-container">
-        <h2>Additional Permissions Needed</h2>
-        <p>Apologies for this unexpected popup!</p>
-        <p>BetterTTV has added support for <b><i>showing BetterTTV emotes in YouTube live chat.</i></b> In order to enable this, <b><i>we need to upgrade your browser permissions</i></b>. Click the button below to do that.</p>
+        <h2 id="title">Allow on YouTube?</h2>
+        <p id="body">Apologies for this unexpected popup!<br /><br />BetterTTV supports BetterTTV emotes in YouTube live chat.<br /><br />But in order to enable this, we need to ask you for additional permission. Click the button below to continue.</p>
         <div class="permissions-cta-button">
-            <button id="upgrade">Upgrade Permissions</button>
+            <button id="upgrade">Enable for YouTube</button>
         </div>
-        <h4>Thanks for using BetterTTV!</h4>
+        <h4 id="footer">Thanks for using BetterTTV!</h4>
     </div>
 </body>
 </html>

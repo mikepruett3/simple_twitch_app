@@ -9,4 +9,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
             window.close();
         });
     });
+
+    document.getElementById('page_title').innerText = chrome.i18n.getMessage('EXTENSION_PERMISSIONS_UPGRADE_PAGE_TITLE');
+    document.getElementById('title').innerText = chrome.i18n.getMessage('EXTENSION_PERMISSIONS_UPGRADE_TITLE');
+    document.getElementById('body').innerText = chrome.i18n.getMessage('EXTENSION_PERMISSIONS_UPGRADE_BODY');
+    document.getElementById('upgrade').innerText = chrome.i18n.getMessage('EXTENSION_PERMISSIONS_UPGRADE_BUTTON');
+    document.getElementById('footer').innerText = chrome.i18n.getMessage('EXTENSION_PERMISSIONS_UPGRADE_FOOTER');
 });

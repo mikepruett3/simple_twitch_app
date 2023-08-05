@@ -1,6 +1,12 @@
 {
 "update_url": "https://clients2.google.com/service/update2/crx",
 
+  "version": "7.5.5",
+  "manifest_version": 2,
+  "name": "__MSG_EXTENSION_NAME__",
+  "description": "__MSG_EXTENSION_DESCRIPTION__",
+  "homepage_url": "https://betterttv.com",
+  "default_locale": "en",
   "content_scripts": [{
     "all_frames": true,
     "js": ["run.js"],
@@ -18,7 +24,6 @@
   "externally_connectable": {
     "matches": ["*://*.twitch.tv/*"]
   },
-  "description": "BetterTTV enhances Twitch with new features, emotes, and more.",
   "icons": {
     "128": "icon.png"
   },
@@ -27,10 +32,5 @@
   },
   "background": {
     "scripts": ["background.js"]
-  },
-  "manifest_version": 2,
-  "name": "BetterTTV",
-  "short_name": "BTTV",
-  "homepage_url": "https://betterttv.com",
-  "version": "7.4.21"
+  }
 }

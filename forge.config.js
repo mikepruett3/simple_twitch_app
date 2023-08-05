@@ -1,5 +1,10 @@
 module.exports = {
   packagerConfig: {
+    asar: true,
+    extraResource: [
+      "./extensions/"
+    ],
+    executableName: 'simple_twitch_app',
     icon: __dirname + '/images/Twitch'
   },
   rebuildConfig: {},
@@ -7,7 +12,7 @@ module.exports = {
     {
       name: '@electron-forge/maker-squirrel',
       config: {
-        iconUrl: __dirname + '/images/Twitch.ico',
+        iconUrl: 'https://raw.githubusercontent.com/mikepruett3/simple_twitch_app/main/images/Twitch.ico',
         setupIcon: './images/Twitch.ico'
       },
     },
@@ -21,6 +26,23 @@ module.exports = {
     },
     {
       name: '@electron-forge/maker-rpm',
+      config: {},
+    },
+  ],
+  publishers: [
+    {
+      name: '@electron-forge/publisher-github',
+      config: {
+        repository: {
+          owner: 'mikepruett3',
+          name: 'simple_twitch_app'
+        }
+      }
+    }
+  ],
+  plugins: [
+    {
+      name: '@electron-forge/plugin-auto-unpack-natives',
       config: {},
     },
   ],
