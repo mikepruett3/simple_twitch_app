@@ -2,13 +2,15 @@
 
 A very quick and very dirty Electron browser for Twitch with BTTV support.
 
-## Features (Tray)
+## Features
 
+- Automatic Channel Point Drop Colections
+- Better Twitch TV Icons (BTTV)
 - Control for Hardware Acceleration
 
 ## Installation
 
-Dowload the lates [release](https://github.com/mikepruett3/simple_twitch_app/releases) for Windows, Linux and MacOS.
+Dowload the latest [release](https://github.com/mikepruett3/simple_twitch_app/releases) for Windows, Linux and MacOS.
 
 For Windows... a standard Exectuable is provided, as well as a NuGet package. RPM and DEB packages are availbe for Linux Distrubtions (not tested!).
 
