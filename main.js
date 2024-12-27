@@ -6,38 +6,62 @@ if (require('electron-squirrel-startup')) return;
 const { app, session, BrowserWindow, Menu, Tray, nativeImage, dialog } = require('electron')
 const { getHA, setHA } = require('./settings.js');
 
+const BetterTTVPath = require("path").join(__dirname, "extensions/BetterTTV/betterttv.js")
+const stylingPath = require("path").join(__dirname, "style/override.css")
+const TwitchLootCollector = require("path").join(__dirname, "extensions/Twitch-Loot-Collector")
+
 // Disable Hardware Acceleration
 // https://www.electronjs.org/docs/latest/tutorial/offscreen-rendering
 if (!getHA()) {
     app.disableHardwareAcceleration()
 }
 
-createWindow = () => {
-    const win = new BrowserWindow({
+const createWindow = () => {
+    const window = new BrowserWindow({
         width: 1280,
         height: 720,
         title: "Twitch App",
-        icon: __dirname + '/images/Twitch.ico',
+        icon: __dirname + '/images/Twitch.png',
         autoHideMenuBar: true,
         webPreferences: {
             nodeIntegration: true,
-            webSecurity: true,
+            webSecurity: false,
             contextIsolation: false,
             webviewTag: true,
             nativeWindowOpen: true
         }
+  })
+
+    window.webContents.on("will-navigate", (event, url) => {
+        if (url.indexOf("https://www.twitch.tv") !== 0) {
+          event.preventDefault()
+        }
     })
 
-    win.loadURL('https://www.twitch.tv')
+    window.webContents.on("did-navigate", (event, url) => {
+        if (url.indexOf("https://www.twitch.tv") !== 0) return
+        window.webContents.executeJavaScript(
+            `(function() {
+              const head = document.getElementsByTagName('head')[0]
+              const script = document.createElement('script')
+              script.type = 'text/javascript'
+              script.src = 'file://${BetterTTVPath}'
+              head.appendChild(script)
+              const link = document.createElement('link')
+              link.rel = 'stylesheet'
+              link.href = 'file://${stylingPath}'
+               head.appendChild(link)
+            })()`,
+            true,
+        )
+    })
 
-    const ses = win.webContents.session
-    ses.loadExtension(__dirname.split("app.asar")[0] + '\\extensions\\Twitch-Loot-Collector')
-    ses.loadExtension(__dirname.split("app.asar")[0] + '.\\extensions\\BetterTTV')
-    //ses.loadExtension(__dirname.split("app.asar")[0] + '\\extensions\\ublock_origin', { allowFileAccess: true })
-    //ses.loadExtension(__dirname.split("app.asar")[0] + '\\extensions\\Video-Ad-Block--for-Twitch')
+    window.webContents.session.loadExtension(TwitchLootCollector);
 
-    const icon = nativeImage.createFromPath(__dirname + '/images/Twitch.ico')
-    const tray = new Tray(icon)
+    window.loadURL("https://www.twitch.tv/directory/following")
+    window.once("ready-to-show", () => {
+        window.show()
+    })
 
     const contextMenu = Menu.buildFromTemplate([
         {
@@ -81,6 +105,18 @@ createWindow = () => {
         }
     ])
 
+    let tray = null
+    if (process.platform == 'darwin') {
+        const icon = nativeImage.createFromPath(__dirname + '/images/Twitch.icns')
+        tray = new Tray(icon)
+    } else if (process.platform == 'win32') {
+        const icon = nativeImage.createFromPath(__dirname + '/images/Twitch.ico')
+        tray = new Tray(icon)
+    } else if (process.platform == 'linux') {
+        const icon = nativeImage.createFromPath(__dirname + '/images/Twitch.png')
+        tray = new Tray(icon)
+    }
+
     tray.setToolTip('Twitch App')
     tray.setTitle('Twitch App')
     tray.setContextMenu(contextMenu)
@@ -88,12 +124,6 @@ createWindow = () => {
 
 app.whenReady().then(() => {
     createWindow()
-
-    app.on('activate', () => {
-        if (BrowserWindow.getAllWindows().length === 0) {
-            createWindow()
-        }
-    })
 })
 
 app.on('window-all-closed', () => {
