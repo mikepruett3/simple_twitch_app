@@ -8,7 +8,7 @@ const { getHA, setHA } = require('./settings.js');
 
 const BetterTTVPath = require("path").join(__dirname, "extensions/BetterTTV/betterttv.js")
 const stylingPath = require("path").join(__dirname, "style/override.css")
-const TwitchLootCollector = require("path").join(__dirname, "extensions/Twitch-Loot-Collector")
+//const TwitchLootCollector = require("path").join(__dirname, "extensions/Twitch-Loot-Collector")
 
 // Disable Hardware Acceleration
 // https://www.electronjs.org/docs/latest/tutorial/offscreen-rendering
@@ -56,7 +56,7 @@ const createWindow = () => {
         )
     })
 
-    window.webContents.session.loadExtension(TwitchLootCollector);
+    //window.webContents.session.loadExtension(TwitchLootCollector);
 
     window.loadURL("https://www.twitch.tv/directory/following")
     window.once("ready-to-show", () => {

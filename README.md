@@ -4,7 +4,6 @@ A very quick and very dirty Electron browser for Twitch with BetterTTV support.
 
 ## Features
 
-- Automatic Channel Point Drop Collections
 - BetterTTV Icons (BTTV)
 - Control for Hardware Acceleration
 
