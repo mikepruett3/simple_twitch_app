@@ -10,6 +10,9 @@ const BetterTTVPath = require("path").join(__dirname, "extensions/BetterTTV/bett
 const stylingPath = require("path").join(__dirname, "style/override.css")
 //const TwitchLootCollector = require("path").join(__dirname, "extensions/Twitch-Loot-Collector")
 
+const { ElectronBlocker } = require('@ghostery/adblocker-electron');
+const fetch = require('cross-fetch'); // required 'fetch'
+
 // Disable Hardware Acceleration
 // https://www.electronjs.org/docs/latest/tutorial/offscreen-rendering
 if (!getHA()) {
@@ -62,6 +65,10 @@ const createWindow = () => {
     window.once("ready-to-show", () => {
         window.show()
     })
+
+    ElectronBlocker.fromPrebuiltAdsAndTracking(fetch).then((blocker) => {
+        blocker.enableBlockingInSession(session.defaultSession);
+    });
 
     const contextMenu = Menu.buildFromTemplate([
         {
