@@ -5,6 +5,7 @@ A very quick and very dirty Electron browser for Twitch with BetterTTV support.
 ## Features
 
 - BetterTTV Icons (BTTV)
+- Ad Blocking via [Ghostery](https://github.com/ghostery/adblocker) awesome package!
 - Control for Hardware Acceleration
 
 ## Installation
